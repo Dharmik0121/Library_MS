@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import logo from "../assets/LMSBlack.png";
+import logo from "../assets/LMSblack.png";
 import logo_with_title from "../assets/LMS.png";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
