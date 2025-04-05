@@ -145,7 +145,7 @@ export const resetAuthSlice = () => (dispach) => {
 export const register = (data) => async (dispach) => {
   dispach(authSlice.actions.registerRequest());
   await axios
-    .post("http://localhost:4000/api/v1/auth/register", data, {
+    .post("https://library-ms-zgac.onrender.com/api/v1/auth/register", data, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -185,7 +185,7 @@ export const otpVerification = (email, otp) => async (dispach) => {
 export const login = (data) => async (dispach) => {
   dispach(authSlice.actions.loginRequest());
   await axios
-    .post("http://localhost:4000/api/v1/auth/login", data, {
+    .post("https://library-ms-zgac.onrender.com/api/v1/auth/login", data, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
