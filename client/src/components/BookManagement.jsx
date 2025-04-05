@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { BookA, NotebookPen } from "lucide-react";
+import { BookA, NotebookPen, Pen, UploadIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleAddBookPopup, toggleReadBookPopup, toggleRecordBookPopup } from "../store/slices/popUpSlice";
+import { toggleAddBookPopup, toggleReadBookPopup, toggleRecordBookPopup, toggleUpdateQuantityPopup } from "../store/slices/popUpSlice";
 import { showToast } from "../showToast";
 import { fetchAllBooks, resetBookSlice } from '../store/slices/bookSlice'
 import { fetchAllBorrowdBooks, resetBorrowSlice } from "../store/slices/borrowSlice";
@@ -10,6 +10,7 @@ import Header from '../layout/Header'
 import AddBookPopup from '../popups/AddBookPopup'
 import RecordBookPopup from '../popups/RecordBookPopup'
 import ReadBookPopup from '../popups/ReadBookPopup'
+import UpdateQuantityPopup from "../popups/UpdateBookQuantityPopup";
 
 const BookManagement = () => {
   const dispatch = useDispatch()
@@ -103,7 +104,12 @@ const BookManagement = () => {
                         <td className="px-4 py-2">{index + 1}</td>
                         <td className="px-4 py-2">{book.title}</td>
                         <td className="px-4 py-2 ">{book.author}</td>
-                        {isAuthenticated && user.role === "Admin" && <td className="px-4 py-2 text-left">  {book.quantity} </td>}
+                        {isAuthenticated && user.role === "Admin" &&
+                          <td className="px-4 py-2 text-left flex gap-8">
+                            {book.quantity}
+                          </td>
+
+                        }
                         <td className="px-4 py-2 ">  {book.price} </ td>
                         <td className="px-4 py-2 ">
                           {book.quantity > 0 ?
@@ -116,10 +122,12 @@ const BookManagement = () => {
                             </span>
                           }
                         </td>
+
                         {isAuthenticated && user.role === "Admin" && (
                           <td className="px-4 py-2 flex space-x-2 justify-center">
-                            <BookA className="cursor-pointer" onClick={() => openReadPopup(book._id)} />
-                            <NotebookPen className="cursor-pointer" onClick={() => openRecordBookPopup(book._id)} />
+                            <BookA data-tooltip-id="my-tooltip" data-tooltip-content="Book Info" className="cursor-pointer" onClick={() => openReadPopup(book._id)} />
+                            <NotebookPen data-tooltip-id="my-tooltip" data-tooltip-content="Issue a book" className="cursor-pointer" onClick={() => openRecordBookPopup(book._id)} />
+                            <Pen data-tooltip-id="my-tooltip" data-tooltip-content="Update Book Quantity" title="Update Quantity" className="cursor-pointer" onClick={() => dispatch(toggleUpdateQuantityPopup(book))} />
                           </td>
                         )}
                       </tr>
@@ -135,9 +143,11 @@ const BookManagement = () => {
           )
         }
       </main>
+
       {addBookPopup && <AddBookPopup />}
       {readBookPopup && <ReadBookPopup book={readBook} />}
       {recordBookPopup && <RecordBookPopup bookId={borrowBookId} />}
+      {UpdateQuantityPopup && <UpdateQuantityPopup />}
     </>
   )
 };

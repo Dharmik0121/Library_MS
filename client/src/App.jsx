@@ -12,6 +12,8 @@ import { getUser } from './store/slices/authSlice';
 import { fetchAllUsers } from './store/slices/userSlice';
 import { fetchAllBooks } from './store/slices/bookSlice';
 import { fetchUserBorrowedBooks, fetchAllBorrowdBooks } from './store/slices/borrowSlice';
+import { Tooltip } from 'react-tooltip'
+
 
 const App = () => {
   const { user, isAuthenticated } = useSelector(state => state.auth);
@@ -40,6 +42,7 @@ const App = () => {
         <Route path="/password/reset/:token" element={<ResetPassword />} />
       </Routes>
       <ToastContainer theme='dark' />
+      <Tooltip id="my-tooltip" />
     </Router>
   </>;
 };

@@ -2,6 +2,7 @@ import {
   addBook,
   getAllBooks,
   deleteBook,
+  updateBookQuantity,
 } from "../contollers/bookController.js";
 import { isAuthenticated, isAuthorized } from "../middleware/authMiddleware.js";
 import express from "express";
@@ -14,5 +15,11 @@ router.delete(
   isAuthenticated,
   isAuthorized("Admin"),
   deleteBook
+);
+router.put(
+  "/update/:id",
+  isAuthenticated,
+  isAuthorized("Admin"),
+  updateBookQuantity
 );
 export default router;

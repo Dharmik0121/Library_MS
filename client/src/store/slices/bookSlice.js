@@ -39,6 +39,19 @@ const bookSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    updateBookQuantityRequest(state) {
+      state.loading = true;
+      state.error = null;
+      state.message = null;
+    },
+    updateBookQuantitySuccess(state, action) {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    updateBookQuantityFailed(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
     resetBookSlice(state) {
       state.loading = false;
       state.error = null;
@@ -60,6 +73,7 @@ const bookSlice = createSlice({
 //       dispatch(bookSlice.actions.fetchBooksFailed(error.response.data.message));
 //     });
 // };
+
 export const fetchAllBooks = () => async (dispatch) => {
   dispatch(bookSlice.actions.fetchBooksRequest());
   try {
@@ -101,6 +115,31 @@ export const addBook = (data) => async (dispatch) => {
 
 export const resetBookSlice = (data) => async (dispatch) => {
   dispatch(bookSlice.actions.resetBookSlice());
+};
+
+export const updateBookQuantity = (bookId, newQuantity) => async (dispatch) => {
+  dispatch(bookSlice.actions.updateBookQuantityRequest());
+  try {
+    const res = await axios.put(
+      `http://localhost:4000/api/v1/book/update/${bookId}`,
+      { quantity: newQuantity },
+      { withCredentials: true }
+    );
+
+    dispatch(bookSlice.actions.updateBookQuantitySuccess(res.data.message));
+    showToast(res.data.message, "success"); // Optional: use toast here
+    dispatch(fetchAllBooks()); // Refresh books list
+  } catch (error) {
+    dispatch(
+      bookSlice.actions.updateBookQuantityFailed(
+        error.response?.data?.message || "Error updating quantity"
+      )
+    );
+    showToast(
+      error.response?.data?.message || "Error updating quantity",
+      "error"
+    );
+  }
 };
 
 export default bookSlice.reducer;

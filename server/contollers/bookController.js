@@ -33,3 +33,24 @@ export const deleteBook = catchAsyncErrors(async (req, res, next) => {
   await book.deleteOne();
   res.status(200).json({ success: true, message: "Book deleted successfully" });
 });
+
+export const updateBookQuantity = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const { quantity } = req.body;
+
+  if (quantity === undefined || quantity < 0) {
+    return next(new ErrorHandler("Invalid quantity value", 400));
+  }
+
+  const book = await Book.findById(id);
+  if (!book) {
+    return next(new ErrorHandler("Book not found", 404));
+  }
+
+  book.quantity = quantity;
+  await book.save();
+
+  res
+    .status(200)
+    .json({ success: true, message: "Book quantity updated", book });
+});
