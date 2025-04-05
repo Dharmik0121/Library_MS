@@ -48,9 +48,21 @@ export const recordBorrowedBook = catchAsyncErrors(async (req, res, next) => {
     dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     price: book.price,
   });
-  res
-    .status(200)
-    .json({ message: "Book borrowed successfully", success: true });
+  // res
+  //   .status(200)
+  //   .json({
+  //     message: "Book borrowed successfully",
+  //     success: true,
+  //     bookTitle: book.title,
+  //     borrowedBy: user.email,
+  //     dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  //   });
+  res.status(200).json({
+    message: "Book borrowed successfully",
+    success: true,
+    bookTitle: book.title,
+    user: { email: user.email },
+  });
 });
 
 export const returnBorrowedBook = catchAsyncErrors(async (req, res, next) => {
@@ -105,9 +117,8 @@ export const returnBorrowedBook = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     message:
       fine !== 0
-        ? `Book returned successfully. The total charges, including a fine, are ₹${
-            fine + book.price
-          }`
+        ? `Book returned successfully. The total charges, including a fine, are ₹
+        ${fine + book.price}`
         : `Book returned successfully. The total charges are ₹${book.price}`,
     success: true,
   });
@@ -115,12 +126,12 @@ export const returnBorrowedBook = catchAsyncErrors(async (req, res, next) => {
 
 export const getBorrowedBooksForAdmin = catchAsyncErrors(
   async (req, res, next) => {
-    const { borrowedBooks } = req.user;
+    const borrowedBooks = await Borrow.find().lean();
     res.status(200).json({ success: true, borrowedBooks });
   }
 );
 
 export const borrowedBooks = catchAsyncErrors(async (req, res, next) => {
-  const borrowedBooks = await Borrow.find();
+  const { borrowedBooks } = await req.user;
   res.status(200).json({ success: true, borrowedBooks });
 });
