@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/LMSBlack.png";
+import logo from "../assets/LMSblack.png";
 import logo2 from "../assets/LMS.png";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
