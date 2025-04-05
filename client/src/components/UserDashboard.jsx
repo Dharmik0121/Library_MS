@@ -18,7 +18,6 @@ import {
   PointElement,
   ArcElement,
 } from "chart.js";
-import logo from "../assets/black-logo.png";
 
 ChartJS.register(
   CategoryScale,
