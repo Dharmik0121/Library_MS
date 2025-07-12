@@ -26,7 +26,7 @@ export const app = express();
 // ✅ CORS configuration — IMPORTANT
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://library-ms-qgex.onrender.com/"] // e.g. "https://your-frontend.vercel.app"
+    origin: ["http://localhost:5173", "https://library-ms-qgex.onrender.com/"], // e.g. "https://your-frontend.vercel.app"
     credentials: true, // ⬅️ allow cookies to be sent
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
