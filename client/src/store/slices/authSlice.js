@@ -145,12 +145,16 @@ export const resetAuthSlice = () => (dispach) => {
 export const register = (data) => async (dispach) => {
   dispach(authSlice.actions.registerRequest());
   await axios
-    .post("http://localhost:4000/api/v1/auth/register", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    .post(
+      "https://library-ms-backend.onrender.com/api/v1/auth/register",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
     .then((res) => {
       dispach(authSlice.actions.registerSuccess(res.data));
     })
@@ -163,7 +167,7 @@ export const otpVerification = (email, otp) => async (dispach) => {
   dispach(authSlice.actions.otpVerificationRequest());
   await axios
     .post(
-      "http://localhost:4000/api/v1/auth/verify-otp",
+      "https://library-ms-backend.onrender.com/api/v1/auth/verify-otp",
       { email, otp },
       {
         withCredentials: true,
@@ -185,7 +189,7 @@ export const otpVerification = (email, otp) => async (dispach) => {
 export const login = (data) => async (dispach) => {
   dispach(authSlice.actions.loginRequest());
   await axios
-    .post("http://localhost:4000/api/v1/auth/login", data, {
+    .post("https://library-ms-backend.onrender.com/api/v1/auth/login", data, {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
@@ -202,7 +206,7 @@ export const login = (data) => async (dispach) => {
 export const logout = () => async (dispach) => {
   dispach(authSlice.actions.logoutRequest());
   await axios
-    .get("http://localhost:4000/api/v1/auth/logout", {
+    .get("https://library-ms-backend.onrender.com/api/v1/auth/logout", {
       withCredentials: true,
     })
     .then((res) => {
@@ -217,7 +221,7 @@ export const logout = () => async (dispach) => {
 export const getUser = () => async (dispach) => {
   dispach(authSlice.actions.getUserRequest());
   await axios
-    .get("http://localhost:4000/api/v1/auth/me", {
+    .get("https://library-ms-backend.onrender.com/api/v1/auth/me", {
       withCredentials: true,
     })
     .then((res) => {
@@ -232,7 +236,7 @@ export const forgotPassword = (email) => async (dispach) => {
   dispach(authSlice.actions.forgotPasswordRequest());
   await axios
     .post(
-      "http://localhost:4000/api/v1/auth/password/forgot",
+      "https://library-ms-backend.onrender.com/api/v1/auth/password/forgot",
       { email },
       {
         withCredentials: true,
@@ -254,12 +258,16 @@ export const forgotPassword = (email) => async (dispach) => {
 export const resetPassword = (data, token) => async (dispach) => {
   dispach(authSlice.actions.resetPasswordRequest());
   await axios
-    .put(`http://localhost:4000/api/v1/auth/password/reset/${token}`, data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    .put(
+      `https://library-ms-backend.onrender.com/api/v1/auth/password/reset/${token}`,
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
     .then((res) => {
       dispach(authSlice.actions.resetPasswordSuccess(res.data));
     })
@@ -273,12 +281,16 @@ export const resetPassword = (data, token) => async (dispach) => {
 export const updatePassword = (data) => async (dispach) => {
   dispach(authSlice.actions.updatePasswordRequest());
   await axios
-    .put(`http://localhost:4000/api/v1/auth/password/update`, data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    .put(
+      `https://library-ms-backend.onrender.com/api/v1/auth/password/update`,
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
     .then((res) => {
       dispach(authSlice.actions.updatePasswordSuccess(res.data.message));
       dispach(toggleSettingPopup());

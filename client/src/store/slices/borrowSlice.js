@@ -77,9 +77,12 @@ const borrowSlice = createSlice({
 export const fetchUserBorrowedBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest());
   await axios
-    .get("http://localhost:4000/api/v1/borrow/my-borrowed-books", {
-      withCredentials: true,
-    })
+    .get(
+      "https://library-ms-backend.onrender.com/api/v1/borrow/my-borrowed-books",
+      {
+        withCredentials: true,
+      }
+    )
     .then((res) => {
       dispatch(
         borrowSlice.actions.fetchUserBorrowedBooksSuccess(
@@ -99,7 +102,7 @@ export const fetchUserBorrowedBooks = () => async (dispatch) => {
 // export const fetchAllBorrowdBooks = () => async (dispatch) => {
 //   dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest());
 //   await axios
-//     .get("http://localhost:4000/api/v1/borrow/get-borrowed-books-by-users", {
+//     .get("https://library-ms-backend.onrender.com/api/v1/borrow/get-borrowed-books-by-users", {
 //       withCredentials: true,
 //     })
 //     .then((res) => {
@@ -120,7 +123,7 @@ export const fetchAllBorrowdBooks = () => async (dispatch) => {
   dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest());
   try {
     const res = await axios.get(
-      "http://localhost:4000/api/v1/borrow/get-borrowed-books-by-users",
+      "https://library-ms-backend.onrender.com/api/v1/borrow/get-borrowed-books-by-users",
       { withCredentials: true }
     );
 
@@ -147,7 +150,7 @@ export const recordBorrowedBook = (email, id) => async (dispatch) => {
   dispatch(borrowSlice.actions.recordBookRequest());
   await axios
     .post(
-      `http://localhost:4000/api/v1/borrow/record-borrow-book/${id}`,
+      `https://library-ms-backend.onrender.com/api/v1/borrow/record-borrow-book/${id}`,
       { email },
       {
         withCredentials: true,
@@ -169,7 +172,7 @@ export const returnBook = (email, id) => async (dispatch) => {
   dispatch(borrowSlice.actions.returnBookRequest());
   await axios
     .put(
-      `http://localhost:4000/api/v1/borrow/return-borrowed-book/${id}`,
+      `https://library-ms-backend.onrender.com/api/v1/borrow/return-borrowed-book/${id}`,
       { email },
       {
         withCredentials: true,

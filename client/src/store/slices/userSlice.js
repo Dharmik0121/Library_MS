@@ -37,7 +37,7 @@ const userSlice = createSlice({
 export const fetchAllUsers = () => async (dispatch) => {
   dispatch(userSlice.actions.fetchAllUsersRequest());
   await axios
-    .get("http://localhost:4000/api/v1/user/all", {
+    .get("https://library-ms-backend.onrender.com/api/v1/user/all", {
       withCredentials: true,
     })
     .then((res) => {
@@ -52,12 +52,16 @@ export const fetchAllUsers = () => async (dispatch) => {
 export const addNewAdmin = (data) => async (dispatch) => {
   dispatch(userSlice.actions.addNewAdminRequest());
   await axios
-    .post("http://localhost:4000/api/v1/user/add/new-admin", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    .post(
+      "https://library-ms-backend.onrender.com/api/v1/user/add/new-admin",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
     .then((res) => {
       dispatch(userSlice.actions.addNewAdminSuccess());
       showToast(res.data.message, "success");
